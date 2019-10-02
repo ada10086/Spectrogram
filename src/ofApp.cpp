@@ -9,7 +9,7 @@ void ofApp::setup(){
     ofSetBackgroundAuto(false);
     ofClear(0);
     
-    ofSetWindowTitle("MLTK DEMO");
+    ofSetWindowTitle("Spectrogram");
     
 
     frameTime = frameSize/sampleRate; // how much time per frame analysis
@@ -17,7 +17,7 @@ void ofApp::setup(){
 //    spectrogram.assign(1000,vector<Real>());
     soundStream.setup(numberOfOutputChannels, numberOfInputChannels, sampleRate, frameSize, numberOfBuffers);
     mltk.setup(frameSize, sampleRate, hopSize);
-//    mltk.accumulating = true;   //vector of vector real fft
+//    mltk.accumulating = true;
     mltk.run();
 }
 
@@ -29,10 +29,10 @@ void ofApp::update(){
     spectrogram.push_back(mltk.getData("Spectrum"));
     rms = mltk.getValue("RMS");
     for(int i =0 ; i < spectrogram[spectrogram.size()-1].size(); i++){
-        spectrogram[spectrogram.size()-1][i] /= rms;
+        spectrogram[spectrogram.size()-1][i] /= rms;  //each frame of spectrum divided by the frame's rms(total energy) to scale up, the spectrum values/total energy = %
     }
-    
-    spectrogramSize++;
+
+//    spectrogramSize++;
 }
 
 
@@ -45,17 +45,16 @@ void ofApp::draw(){
     //    double frameWidth = ofGetWidth()*frameTime/totalTrackTime;
     //    int nOfFrames = ofGetWidth()/frameWidth;
 
-    float frameWidth = float(ofGetWidth())/float(spectrogram.size());
-    float frameHeight = float(ofGetHeight())/float(mltk.getData("Spectrum").size());
+    frameWidth = float(ofGetWidth())/float(spectrogram.size());
+    frameHeight = float(ofGetHeight())/float(mltk.getData("Spectrum").size());
 
 //    cout << to_string(spectrogram.size()) << endl;
-    for(int i = 0; i< spectrogramSize; i++){
-//     for(int i = 0; i < 100; i++){ //for(vector<Real>frame :spectrogram){
+//    for(int i = 0; i< spectrogramSize; i++){
+     for(int i = 0; i < spectrogram.size(); i++){
        for(int j = 0 ; j < spectrogram[i].size(); j++){
 //            cout << spectrogram[i][j]/rms << endl; //ofLog
             ofSetColor(ofMap(spectrogram[i][j],1,0,0,255,true));
-            ofDrawRectangle(float(i)*frameWidth, frameHeight*float(j), float(i)*frameWidth, float(i)*frameWidth);
-//            ofDrawRectangle(i, j, 1, 1);
+            ofDrawRectangle(float(i)*frameWidth, frameHeight*float(j), frameWidth, frameWidth);
 
         }
 

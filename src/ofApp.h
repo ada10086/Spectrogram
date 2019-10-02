@@ -21,15 +21,14 @@ class ofApp : public ofBaseApp{
     double frameTime;
     int spectrogramSize = 0;
     
+    float frameWidth;
+    float frameHeight;
+    
     vector<Real> spectrum;
     vector<vector<Real>> spectrogram;
     Real rms;  //total energy
     
     int frameCount = 1;
-
-//    vector<Real> fft;
-//    vector<vector<Real>> fft; //accumulated over time
-//    vector<Real> spectrum;
     
 		void setup();
 		void update();
