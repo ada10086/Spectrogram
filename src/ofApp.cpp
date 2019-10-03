@@ -6,7 +6,7 @@ void ofApp::setup(){
     //
     //  ofClear(backgroundColor.get());;
     ofSetVerticalSync(true);
-    ofSetBackgroundAuto(false);
+    ofSetBackgroundAuto(true);
     ofClear(0);
     
     
@@ -15,7 +15,7 @@ void ofApp::setup(){
     img.allocate(1,(frameSize/2)+1, OF_IMAGE_GRAYSCALE);
     int i = 0;
     while ( i < img.getPixels().size() ) {
-        img.getPixels()[i] = 0;
+        img.getPixels()[i] = 255;
         i++;
     }
     img.update();
@@ -49,7 +49,7 @@ void ofApp::update(){
 //            for(int j = 0 ; j < spectrogram[i].size(); j++){
     //            cout << "i:"+ to_string(i)+" j:" + to_string(j) << endl; //ofLog
 //                    img.setColor(i, j, ofMap(spectrogram[i][j]/rms[i],0,1,0,255,true));
-                img.setColor(i, j, ofMap(spectrogram[i][j]*10000,1,0,0,255,true));
+                img.setColor(i, j, ofMap(spectrogram[i][j],rms[i],0,255,0,true));
 
     //                cout << "map" << ofMap(spectrogram[i][j]/rms[i],1,0,0,255,true) << endl; //ofLog
     //                cout << spectrogram[i][j] << endl; //ofLog
@@ -85,7 +85,7 @@ void ofApp::draw(){
 //        }
 //
 //    }
-    
+    ofBackground(255);
     
     img.draw(0,0,ofGetWidth(),ofGetHeight());
 
