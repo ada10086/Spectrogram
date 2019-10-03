@@ -18,17 +18,17 @@ class ofApp : public ofBaseApp{
     int hopSize = 512;
     int numberOfBuffers = 1;
     double totalTrackTime = 20;
-    double frameTime;
-    int spectrogramSize = 0;
+//    double frameTime;
     
     float frameWidth;
     float frameHeight;
     
     vector<Real> spectrum;
     vector<vector<Real>> spectrogram;
-    Real rms;  //total energy
+//    Real rms;  //total energy
+    vector<float> rms;
     
-    int frameCount = 1;
+    ofImage img;
     
 		void setup();
 		void update();
